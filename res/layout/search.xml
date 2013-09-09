@@ -6,14 +6,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
-    
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:onClick="searchQuery"
-        android:text="@string/button_search" />
+    tools:context=".SearchableActivity" >
 
+    <SearchView
+        android:queryHint="Search for Restaurants">
+        
+    </SearchView>
+    
 </RelativeLayout>
