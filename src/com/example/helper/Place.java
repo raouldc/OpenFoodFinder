@@ -16,9 +16,9 @@ public class Place {
       
     
     /** constructor **/
-    public Place(String name, Double lat, Double lng) {
+    public Place(String name, Double lat, Double lng, String address) {
     	this.name = name;
-    	//this.address = address;
+    	this.address = address;
     	setLocation(lat, lng);
     }
     
