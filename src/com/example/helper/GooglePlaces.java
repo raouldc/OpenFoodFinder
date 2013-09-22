@@ -20,11 +20,12 @@ import android.os.SystemClock;
 
 public class GooglePlaces {
 	
+	private List<Place> listOfPlaces;
 	private HttpClient client;
 	private JSONObject jsonObject;
 	final static String baseURL = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
 	
-	/** The main method **/
+	/** The main method - perform new search **/
 	public List<Place> getPlaces(String key, Double lat, Double lng, int radius) {
 		 /* use StringBuilder instead of just concatenating because 
 		  * Strings are immutable - conserving android system resources */
@@ -35,19 +36,25 @@ public class GooglePlaces {
 		url.append("&query=food%7Crestaurant%7Cbar%7Ccafe"); // "%7C" is equivalent to "|"
 		url.append("&sensor=false"); //true or false??? true means users location was obtained from GPS service
 		
-		String seeURL = url.toString();
-		
 		AsyncTask<String, Integer, String> task = new Task();
 		//task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url.toString());
 		task.execute(url.toString());
 		
 		/* wait until task has finished */
 		while (jsonObject == null) {
-			SystemClock.sleep(1000);
-			// or is it better to use Thread.currentThread.sleep(1000); ?
+			//noticeably faster than sleep(1000)
+			//sleep(1) seems unstable
+			SystemClock.sleep(500);
+			//or is it better to use Thread.currentThread().sleep(x); ?
 		}
 		
-		return convertToList(url.toString());
+		//I think android doesn't like it when I pass JSONObject as parameter
+		return convertToList();
+	}
+	
+	/** get last search results **/
+	public List<Place> getLastResult() {
+		return this.listOfPlaces;
 	}
 	
 	private synchronized JSONObject getJSONObject(String url)
@@ -76,13 +83,13 @@ public class GooglePlaces {
 		}
 	}
 
-	public class Task extends AsyncTask<String, Integer, String> {
+	private class Task extends AsyncTask<String, Integer, String> {
 		@Override
-		protected String doInBackground(String... url) {
+		protected String doInBackground(String... urls) {
 			try {
 				Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
 				/* we are only dealing with 1 url (which is the first url) */
-				jsonObject = getJSONObject(url[0]);
+				jsonObject = getJSONObject(urls[0]);
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
 				e.getCause().toString();
@@ -103,8 +110,8 @@ public class GooglePlaces {
 		}
 	}
 
-	private List<Place> convertToList(String url) {
-		List<Place> listOfPlaces = new ArrayList<Place>();
+	private List<Place> convertToList() {
+		listOfPlaces = new ArrayList<Place>();
 		
 		if (this.jsonObject == null) {
 			//take some action if jsonObject is still null
@@ -119,7 +126,7 @@ public class GooglePlaces {
 			Place currentPlace;
 
 			int i = 0;
-			while (i < jsonArray.length()) {
+			while (i < jsonArray.length()) { //could use enhanced for loop?
 				currentJSONObj = jsonArray.getJSONObject(i);
 
 				geometry = currentJSONObj.getJSONObject("geometry");
@@ -128,6 +135,7 @@ public class GooglePlaces {
 				currentPlace = new Place(currentJSONObj.getString("name"),
 						location.getDouble("lat"), location.getDouble("lng"),
 						currentJSONObj.getString("formatted_address"));
+				
 				listOfPlaces.add(currentPlace);
 				i++;
 			}
