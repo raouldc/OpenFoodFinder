@@ -3,6 +3,7 @@ package com.kudos.off;
 import java.util.List;
 
 
+
 import com.kudos.off.R;
 import com.kudos.off.GooglePlaces;
 import com.kudos.off.Place;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -38,7 +40,15 @@ public class MainActivity extends Activity {
 		GooglePlaces googlePlaces = new GooglePlaces();
 
 		String key = "AIzaSyCH8wY-9O12M-A6xFH-tpENupZ1pqyunS0";
-		Double lat = -36.8498; Double lng = 174.7650; //These coordinates is Queen St. Auckland
+		
+		GPSLocation gLoc  = new GPSLocation(getApplicationContext());
+		
+		Double lat = gLoc.getLatitude(); Double lng = gLoc.getLongitude(); 
+		
+		Log.d("location", "Latitude set to "+lat+", Logitude set to "+lng);
+		
+		
+		
 		int radius = 500; //500m
 
 		/* get list of restaurants */
