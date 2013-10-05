@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<<<<<<< HEAD
     <string name="app_name">OpenFoodFinder</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
@@ -22,3 +23,10 @@
     </string-array>
 
 </resources>
+=======
+    <string name="app_name">Open Food Finder</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
+>>>>>>> d7a9c698c7a61907c7919b71d32334a1adfbb578
