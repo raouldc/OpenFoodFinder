@@ -13,7 +13,7 @@ public class Place implements Parcelable{
  
     private String name;
      
-    //public String icon;
+    private String iconURL;
      
     private LatLng location;
      
@@ -22,10 +22,11 @@ public class Place implements Parcelable{
     private double rating;
     
     /** constructor **/
-    public Place(String name, Double lat, Double lng, String address, Double rating) {
+    public Place(String name, Double lat, Double lng, String address, Double rating, String iconURL) {
     	this.name = name;
     	this.address = address;
     	this.rating = rating;
+    	this.iconURL = iconURL;
     	setLocation(lat, lng);
     }
     
@@ -37,6 +38,10 @@ public class Place implements Parcelable{
 		return name;
 	}
 
+	public String getIconURL() {
+		return iconURL;
+	}
+	
 	public LatLng getLocation() {
 		return location;
 	}
@@ -57,8 +62,9 @@ public class Place implements Parcelable{
 	/*Constructor, converts parcel object back into class instance*/
 	private Place (Parcel in) {
 		name = in.readString();
-		location=LatLng.CREATOR.createFromParcel(in);
+		location = LatLng.CREATOR.createFromParcel(in);
 		address = in.readString();
+		iconURL = in.readString();
 	}
 	
 	@Override
@@ -73,6 +79,7 @@ public class Place implements Parcelable{
 		out.writeString(name);
 		location.writeToParcel(out, flags);
 		out.writeString(address);
+		out.writeString(iconURL);
 	}
 	
     public static final Parcelable.Creator<Place> CREATOR = new Parcelable.Creator<Place>() {

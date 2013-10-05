@@ -6,4 +6,19 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_restaurant_page">RestaurantPageActivity</string>
 
+    <string-array name="radius_array">
+        <item>Radius(m)</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
+    </string-array>
+    <string-array name="keys">
+        <item>AIzaSyD_dW9W5Ui-hx4uhWTbAFbUQRmpNpRsB6w</item>
+        <item>AIzaSyCH8wY-9O12M-A6xFH-tpENupZ1pqyunS0</item>
+        <item>AIzaSyBJhuiG4ZcEUGK5DqAbhPsgGpNw_bJJ-wg</item>
+    </string-array>
+
 </resources>

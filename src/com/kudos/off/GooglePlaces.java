@@ -20,6 +20,7 @@ import android.os.SystemClock;
 
 public class GooglePlaces {
 
+	private int waitCount = 0;
 	private List<Place> listOfPlaces;
 	private HttpClient client;
 	private JSONObject jsonObject;
@@ -45,12 +46,20 @@ public class GooglePlaces {
 		while (jsonObject == null) {
 			//noticeably faster than sleep(1000)
 			//sleep(1) seems unstable
+			waitCount++;
 			SystemClock.sleep(500);
+			if (waitCount > 10) {
+				break;
+			}
 			//or is it better to use Thread.currentThread().sleep(x); ?
 		}
 
 		//I think android doesn't like it when I pass JSONObject as parameter
-		return convertToList();
+		if (waitCount < 11) {
+			return convertToList();
+		} else {
+			return null;
+		}
 	}
 
 	/** get last search results **/
@@ -138,11 +147,12 @@ public class GooglePlaces {
 				location = geometry.getJSONObject("location");
 		
 				double rating  = currentJSONObj.has("rating") ? currentJSONObj.getDouble("rating") : -1.0;
+				String icon = currentJSONObj.has("icon") ? currentJSONObj.getString("icon") : null;
 
 				currentPlace = new Place(currentJSONObj.getString("name"),
 						location.getDouble("lat"), location.getDouble("lng"),
 						currentJSONObj.getString("formatted_address"),
-						rating);
+						rating, icon);
 
 				listOfPlaces.add(currentPlace);
 				i++;
