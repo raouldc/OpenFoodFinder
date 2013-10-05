@@ -19,7 +19,7 @@ public class Place implements Parcelable{
      
     private String address;
       
-    private double rating;
+    private Double rating;
     
     /** constructor **/
     public Place(String name, Double lat, Double lng, String address, Double rating, String iconURL) {
@@ -62,8 +62,9 @@ public class Place implements Parcelable{
 	/*Constructor, converts parcel object back into class instance*/
 	private Place (Parcel in) {
 		name = in.readString();
-		location = LatLng.CREATOR.createFromParcel(in);
+		location=LatLng.CREATOR.createFromParcel(in);
 		address = in.readString();
+		rating = in.readDouble();
 		iconURL = in.readString();
 	}
 	
@@ -79,6 +80,7 @@ public class Place implements Parcelable{
 		out.writeString(name);
 		location.writeToParcel(out, flags);
 		out.writeString(address);
+		out.writeDouble(rating);
 		out.writeString(iconURL);
 	}
 	

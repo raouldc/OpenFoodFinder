@@ -33,7 +33,7 @@
         <activity android:name="com.kudos.off.RestaurantPageActivity" android:label="@string/title_activity_restaurant_page">
         </activity>
 
-        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAc-6u8U894gm3ncCB2q6-IZladJhpiff8" />
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB_YbnvUPzmLEIiXLfWWb_NxHLQv7F1YqI" />
     </application>
 
 </manifest>

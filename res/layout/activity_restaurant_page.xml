@@ -1,50 +1,67 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:map="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView1"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RestaurantPageActivity"
-    android:background="#fdf3ea" >
+    android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/restaurantIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="restaurant icon"
-        android:src="@drawable/common_signin_btn_icon_focus_light" />
-
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/restaurantIcon"
-        android:layout_alignTop="@id/restaurantIcon"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/restaurantIcon"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/restaurantIcon"
-        android:layout_below="@id/restaurantIcon"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.MapFragment"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/textAddress"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp" />
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout"
+        android:background="#fdf3ea"
+        tools:context=".RestaurantPageActivity" >
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/restaurantIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="restaurant icon"
+            android:src="@drawable/common_signin_btn_icon_focus_light" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/restaurantIcon"
+            android:layout_alignTop="@id/restaurantIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/restaurantIcon"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/restaurantIcon"
+            android:layout_below="@id/restaurantIcon"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textAddress"
+            android:layout_centerHorizontal="true"
+            android:numStars="5"
+            android:visibility="gone" />
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/ratingBar"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

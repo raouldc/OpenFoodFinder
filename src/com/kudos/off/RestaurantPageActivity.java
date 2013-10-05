@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RestaurantPageActivity extends Activity {
 
@@ -35,15 +36,20 @@ public class RestaurantPageActivity extends Activity {
 				.execute(place.getIconURL());
 
 		// all the map related code
-//		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(
-//				R.id.map)).getMap();
-//		map.addMarker(new MarkerOptions().position(place.getLocation()).title(
-//				place.getName()));
-//
-//		map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//		CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
-//				place.getLocation(), 15);
-//		map.animateCamera(update);
+		try {
+			GoogleMap map = ((MapFragment) getFragmentManager()
+					.findFragmentById(R.id.map)).getMap();
+			map.addMarker(new MarkerOptions().position(place.getLocation())
+					.title(place.getName()));
+
+			map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+			CameraUpdate update = CameraUpdateFactory.newLatLngZoom(
+					place.getLocation(), 15);
+			map.animateCamera(update);
+		} catch (Exception e) {
+			Toast.makeText(this, "Error loading map", Toast.LENGTH_SHORT)
+					.show();
+		}
 	}
 
 	@Override

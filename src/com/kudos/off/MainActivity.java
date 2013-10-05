@@ -47,8 +47,14 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 		Spinner spinner = (Spinner) findViewById(R.id.drop_down);
 		spinner.setOnItemSelectedListener(this);
 
-		Double lat = -36.8498; Double lng = 174.7650; //These coordinates is Queen St. Auckland
-		
+		Double lat, lng;
+		try {
+			GPSLocation gLoc  = new GPSLocation(getApplicationContext());
+			lat = gLoc.getLatitude(); lng = gLoc.getLongitude(); 
+		} catch (Exception e) {
+			lat = -36.8498; lng = 174.7650; //Queen St. Auckland
+		}
+
 		List<Place> listOfPlaces = null;
 
 		keyList = getResources().getStringArray(R.array.keys);
@@ -127,13 +133,19 @@ public class MainActivity extends Activity implements OnItemSelectedListener {
 			View listItemView = inflater.inflate(R.layout.custom_list,null);
 			
 			TextView name = (TextView)listItemView.findViewById(R.id.name);
-			TextView address = (TextView)listItemView.findViewById(R.id.address);
-//			RatingBar rating = (RatingBar)listItemView.findViewById(R.id.rating);
+			TextView noRating = (TextView)listItemView.findViewById(R.id.rating);
+			RatingBar ratingBar = (RatingBar)listItemView.findViewById(R.id.ratingBar);
+			
 			
 			name.setText(places.get(position).getName());
-			address.setText(places.get(position).getAddress());
-			address.setText("Rating: " + places.get(position).getRating().toString());
-			//Rating of -1.0 means no rating available
+			Double ratingValue = places.get(position).getRating();
+			if (ratingValue < 0) {
+					noRating.setText("No rating available");
+					noRating.setVisibility(View.VISIBLE);
+				} else {
+					ratingBar.setRating(Float.parseFloat(ratingValue.toString()));
+					ratingBar.setVisibility(View.VISIBLE);
+				}
 			
 			return listItemView;
 		}
